@@ -1,3 +1,4 @@
+import Nav from '@/components/Nav';
 import './globals.css'
 import { FlagshipProvider } from '@/components/flagship'
 import { getFsVisitorData } from '@/helpers/flagship';
@@ -22,12 +23,15 @@ export default async function RootLayout({ children }) {
         <FlagshipProvider
           envId={process.env.NEXT_PUBLIC_ENV_ID}
           apiKey={process.env.NEXT_PUBLIC_API_KEY}
-          initialFlagsData={visitor.getFlagsDataArray()}
-          visitorData={visitorData}
-        >
-          {children}
+          // initialFlagsData={visitor.getFlagsDataArray()}
+          visitorData={visitorData}>
+          <div className={"container"}>
+            <main className={"main"}>
+              {children}
+            </main>
+          </div>
         </FlagshipProvider>
       </body>
-    </html>
+    </html >
   )
 }

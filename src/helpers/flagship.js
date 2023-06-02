@@ -1,7 +1,6 @@
 import { Flagship, DecisionMode } from '@flagship.io/js-sdk'
 
-export async function getFsVisitorData(param) {
-    const { id, context } = param
+export async function getFsVisitorData() {
 
     if (!Flagship.getVisitor()) {
         Flagship.start(
@@ -15,8 +14,8 @@ export async function getFsVisitorData(param) {
     }
 
     const visitor = Flagship.newVisitor({
-        visitorId: id,
-        context: context || {},
+        visitorId: "visitor",
+        context: {},
         isNewInstance: false
     })
     await visitor.fetchFlags();
