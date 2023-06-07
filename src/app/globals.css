@@ -351,3 +351,16 @@ button{
     transform: rotate(0deg);
   }
 }
+
+.nav{
+  background: #007bff;
+  padding: 20px;
+}
+
+a{
+  padding: 5px;
+}
+
+a:hover{
+  opacity: 0.5;
+}

@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <>
       <h1>Next ServerSide Rendering Integration With Flagship [SSR]</h1>
-      <Nav/>
       <p>flag key: my_flag_key</p>
       <MyFlagComponent />
       <MyButtonSendHit />
