@@ -2,14 +2,14 @@ import { Flagship, FlagshipStatus } from '@flagship.io/react-sdk'
 
 export async function getFsVisitorData(visitorData) {
 
-    //Check if Flagship JS SDK is already initialized 
+    //Check if the Flagship JS SDK has already been initialized 
     if (!Flagship.getStatus() || Flagship.getStatus() === FlagshipStatus.NOT_INITIALIZED) {
-        // Start the SDK
+        //Start the SDK with the provided environment ID and API key
         Flagship.start(
             process.env.NEXT_PUBLIC_ENV_ID,
             process.env.NEXT_PUBLIC_API_KEY,
             {
-                fetchNow: false, // Fetch data only when `fetchFlags` is called
+                fetchNow: false, // Set to only fetch data when `fetchFlags` is called
                 nextFetchConfig: { revalidate: 20 }, // Configure next fetch cache to revalidate SDK routes after 20 sec
             }
         );
@@ -21,7 +21,7 @@ export async function getFsVisitorData(visitorData) {
         context: visitorData.context
     });
 
-    // Fetch flags
+    // Fetch flag values for the visitor
     await visitor.fetchFlags();
 
     // Return visitor instance
