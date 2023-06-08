@@ -1,9 +1,9 @@
 //src/app/layout.js
 
 import { getFsVisitorData } from '@/helpers/flagship'
-import './globals.css'
 import { FlagshipProvider } from '@flagship.io/react-sdk'
-import Link from 'next/link'
+import Nav from '@/components/Nav'
+import './globals.css'
 
 export const metadata = {
   title: 'Create Next App',
@@ -33,9 +33,7 @@ export default async function RootLayout({ children }) {
         >
           <div className={"container"}>
             <div className='nav'>
-              <Link href="/">Home</Link>
-              <Link href="/client-component">client-component page</Link>
-              <Link href="/server-component">server-component page</Link>
+              <Nav />
             </div>
             <main className={"main"}>
 
