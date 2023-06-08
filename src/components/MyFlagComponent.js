@@ -1,7 +1,7 @@
 'use client'
 import {
     useFsFlag,
-} from "@/components/flagship";
+} from "@flagship.io/react-sdk";
 
 export function MyFlagComponent() {
     const myFlag = useFsFlag("my_flag_key", "default-value");

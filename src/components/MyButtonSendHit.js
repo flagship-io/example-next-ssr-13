@@ -1,11 +1,9 @@
 'use client'
 import {
-    useFsFlag,
     useFlagship,
-    Flagship,
     HitType,
     EventCategory,
-} from "@/components/flagship";
+} from "@flagship.io/react-sdk";
 
 export function MyButtonSendHit() {
     const fs = useFlagship();

@@ -1,7 +1,9 @@
-import './globals.css'
-import { FlagshipProvider } from '@/components/flagship'
-import { getFsVisitorData } from '@/helpers/flagship';
+//src/app/layout.js
 
+import { getFsVisitorData } from '@/helpers/flagship'
+import { FlagshipProvider } from '@flagship.io/react-sdk'
+import Nav from '@/components/Nav'
+import './globals.css'
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,22 +14,34 @@ export default async function RootLayout({ children }) {
 
   const visitorData = {
     id: "visitorId",
-    context: {}
+    context: {
+      key: "value"
+    }
   }
 
+  // Get visitor instance
   const visitor = await getFsVisitorData(visitorData)
+
   return (
     <html lang="en">
       <body >
         <FlagshipProvider
           envId={process.env.NEXT_PUBLIC_ENV_ID}
           apiKey={process.env.NEXT_PUBLIC_API_KEY}
-          initialFlagsData={visitor.getFlagsDataArray()}
-          visitorData={visitorData}
+          initialFlagsData={visitor.getFlagsDataArray()} // set Initial flags data from visitor instance
+          visitorData={visitorData} // visitor data
         >
-          {children}
+          <div className={"container"}>
+            <div className='nav'>
+              <Nav />
+            </div>
+            <main className={"main"}>
+
+              {children}
+            </main>
+          </div>
         </FlagshipProvider>
       </body>
-    </html>
+    </html >
   )
 }
