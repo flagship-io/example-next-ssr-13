@@ -1,4 +1,4 @@
-Example of Flagship implementation in Next.js 13
+# Example of Flagship implementation in Next.js 13
 
 [Example documentation](https://docs.developers.flagship.io/docs/nextjs-13)
 
