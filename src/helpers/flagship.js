@@ -1,22 +1,64 @@
-import { Flagship, FlagshipStatus } from '@flagship.io/react-sdk'
+import { Flagship, FlagshipStatus, DecisionMode, LogLevel } from '@flagship.io/react-sdk'
+
+// Function to start the Flagship SDK
+function startFlagshipSDKAsync() {
+    // Return a new Promise
+    return new Promise((resolve) => {
+        // Check if the Flagship SDK has already been initialized
+        if (
+            Flagship.getStatus() &&
+            Flagship.getStatus() !== FlagshipStatus.NOT_INITIALIZED
+        ) {
+            // If it has been initialized, resolve the Promise with the Flagship object and return early
+            resolve(Flagship);
+            return;
+        }
+        // If the SDK has not been initialized, start it with the specified parameters
+        Flagship.start(
+            process.env.NEXT_PUBLIC_ENV_ID, // Environment ID
+            process.env.NEXT_PUBLIC_API_KEY, // API key
+            {
+                pollingInterval: 10, // Set polling interval to 10
+                fetchNow: false, // Do not fetch flags immediately
+                decisionMode: DecisionMode.BUCKETING, // Set decision mode to BUCKETING
+                nextFetchConfig: { revalidate: 15 }, //Set cache revalidation for SDK routes to 15 seconds
+                onBucketingSuccess: () => {
+                    // It is triggered when the first bucketing file request succeeds, resolve the Promise with the Flagship object
+                    resolve(Flagship);
+                },
+                onBucketingFail() {
+                    // It is triggered when the first bucketing file request fails, resolve the Promise with the Flagship object
+                    resolve(Flagship);
+                },
+            }
+        );
+    });
+}
+
+// Function to start the Flagship SDK
+export function startFlagshipSDK() {
+    if (Flagship.getStatus() && Flagship.getStatus() !== FlagshipStatus.NOT_INITIALIZED) {
+        return Flagship; // If it has been initialized, return early
+    }
+    return Flagship.start(process.env.NEXT_PUBLIC_ENV_ID, process.env.NEXT_PUBLIC_API_KEY, {
+        fetchNow: false, // Do not fetch flags immediately
+        decisionMode: DecisionMode.DECISION_API, // set decision mode : DECISION_API 
+        nextFetchConfig: { revalidate: 15 }, //Set cache revalidation for SDK routes to 15 seconds
+    });
+}
+
+
 
 export async function getFsVisitorData(visitorData) {
 
-    //Check if the Flagship JS SDK has already been initialized 
-    if (!Flagship.getStatus() || Flagship.getStatus() === FlagshipStatus.NOT_INITIALIZED) {
-        //Start the SDK with the provided environment ID and API key
-        Flagship.start(
-            process.env.NEXT_PUBLIC_ENV_ID,
-            process.env.NEXT_PUBLIC_API_KEY,
-            {
-                fetchNow: false, // Set to only fetch data when `fetchFlags` is called
-                nextFetchConfig: { revalidate: 20 }, // Configure next fetch cache to revalidate SDK routes after 20 sec
-            }
-        );
-    }
+    // start the SDK in Decision Api mode et get the Flagship instance 
+    const flagship = startFlagshipSDK()
+
+    // start the SDK in Bucketing mode et get the Flagship instance 
+    // const flagship = await startFlagshipSDKAsync()
 
     // Create a visitor 
-    const visitor = Flagship.newVisitor({
+    const visitor = flagship.newVisitor({
         visitorId: visitorData.id,
         context: visitorData.context
     });
