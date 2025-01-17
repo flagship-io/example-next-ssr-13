@@ -1,4 +1,4 @@
-import { Flagship, FlagshipStatus, DecisionMode, LogLevel } from '@flagship.io/react-sdk'
+import { Flagship, FSSdkStatus, DecisionMode, LogLevel } from '@flagship.io/react-sdk'
 
 // Function to start the Flagship SDK
 function startFlagshipSDKAsync() {
@@ -36,23 +36,22 @@ function startFlagshipSDKAsync() {
 }
 
 // Function to start the Flagship SDK
-export function startFlagshipSDK() {
-    if (Flagship.getStatus() && Flagship.getStatus() !== FlagshipStatus.NOT_INITIALIZED) {
+export async function startFlagshipSDK() {
+    if (Flagship.getStatus() && Flagship.getStatus() !== FSSdkStatus.SDK_NOT_INITIALIZED) {
         return Flagship; // If it has been initialized, return early
     }
-    return Flagship.start(process.env.NEXT_PUBLIC_ENV_ID, process.env.NEXT_PUBLIC_API_KEY, {
+    return await Flagship.start(process.env.NEXT_PUBLIC_ENV_ID, process.env.NEXT_PUBLIC_API_KEY, {
         fetchNow: false, // Do not fetch flags immediately
-        decisionMode: DecisionMode.DECISION_API, // set decision mode : DECISION_API 
+        decisionMode: DecisionMode.DECISION_API, // set decision mode 
         nextFetchConfig: { revalidate: 15 }, //Set cache revalidation for SDK routes to 15 seconds
     });
 }
 
 
-
 export async function getFsVisitorData(visitorData) {
 
     // start the SDK in Decision Api mode et get the Flagship instance 
-    const flagship = startFlagshipSDK()
+    const flagship = await startFlagshipSDK()
 
     // start the SDK in Bucketing mode et get the Flagship instance 
     // const flagship = await startFlagshipSDKAsync()
