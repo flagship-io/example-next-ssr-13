@@ -59,7 +59,8 @@ export async function getFsVisitorData(visitorData) {
     // Create a visitor 
     const visitor = flagship.newVisitor({
         visitorId: visitorData.id,
-        context: visitorData.context
+        context: visitorData.context,
+        hasConsented: visitorData.hasConsented,
     });
 
     // Fetch flag values for the visitor

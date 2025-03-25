@@ -7,7 +7,8 @@ export default async function ServerComponent() {
         id: "visitorId",
         context: {
             key: "value"
-        }
+        },
+        hasConsented: true
     }
     //Get visitor instance
     const visitor = await getFsVisitorData(visitorData)
