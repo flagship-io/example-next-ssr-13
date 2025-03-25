@@ -9,7 +9,7 @@ export function MyButtonSendHit() {
     const fs = useFlagship();
 
     const onSendHitClick = () => {
-        fs.hit.send({
+        fs.sendHits({
             type: HitType.EVENT,
             category: EventCategory.ACTION_TRACKING,
             action: "click button",

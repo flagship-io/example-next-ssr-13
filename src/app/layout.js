@@ -1,7 +1,7 @@
 //src/app/layout.js
 
 import { getFsVisitorData } from '@/helpers/flagship'
-import { FlagshipProvider } from '@flagship.io/react-sdk'
+import { FlagshipProvider, LogLevel } from '@flagship.io/react-sdk'
 import Nav from '@/components/Nav'
 import './globals.css'
 
@@ -14,6 +14,7 @@ export default async function RootLayout({ children }) {
 
   const visitorData = {
     id: "visitorId",
+    hasConsented: true,
     context: {
       key: "value"
     }
@@ -28,7 +29,7 @@ export default async function RootLayout({ children }) {
         <FlagshipProvider
           envId={process.env.NEXT_PUBLIC_ENV_ID}
           apiKey={process.env.NEXT_PUBLIC_API_KEY}
-          initialFlagsData={visitor.getFlagsDataArray()} // set Initial flags data from visitor instance
+          initialFlagsData={visitor.getFlags().toJSON()} // set Initial flags data from visitor instance
           visitorData={visitorData} // visitor data
         >
           <div className={"container"}>
