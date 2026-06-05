@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@flagship.io/react-sdk": "^5.0.0",
-    "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
-    "next": "13.4.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "eslint": "^9.7.0",
+    "eslint-config-next": "^16.2.7",
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   }
 }
